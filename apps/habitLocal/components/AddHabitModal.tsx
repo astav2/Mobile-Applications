@@ -39,7 +39,7 @@ export function AddHabitModal({ visible, onClose, onAdd, isDark }: AddHabitModal
   return (
     <Modal
       visible={visible}
-      transparent
+      transparent={true}
       animationType="fade"
       onRequestClose={handleClose}
     >
