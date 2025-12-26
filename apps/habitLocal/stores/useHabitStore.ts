@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HabitState, Habit, DayLog } from '../types';
-import { generateId } from '../../../shared/utils/helpers';
+import { generateId } from '../utils/helpers';
 import { getTodayString } from '../utils/date';
 
 const initialSettings = {
