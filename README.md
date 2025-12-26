@@ -53,7 +53,7 @@ Each app in the `apps/` directory is a standalone Expo project with its own:
 - Documentation (`README.md`)
 
 ### App List
-- *(Apps will be listed here as they are created)*
+- **[habitLocal](apps/habitLocal/)** - Minimalist offline-first habit tracker with streak tracking and heat map visualization
 
 ## 🧩 Shared Code
 
