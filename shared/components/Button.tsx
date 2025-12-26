@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { colors, spacing, typography, borderRadius } from '../../constants/theme';
+import { colors, spacing, typography, borderRadius } from '../constants/theme';
 
 interface ButtonProps {
   title: string;
