@@ -51,7 +51,7 @@ export default function SettingsScreen() {
 
         <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Data</Text>
         <View style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <TouchableOpacity style={styles.settingRow} disabled>
+          <TouchableOpacity style={styles.settingRow} disabled={true}>
             <View style={{ flex: 1 }}>
               <Text style={[styles.settingLabel, { color: theme.textSecondary }]}>
                 Export Data

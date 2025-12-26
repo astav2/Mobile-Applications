@@ -95,7 +95,7 @@ export default function HabitDetailScreen() {
               style={[styles.editInput, { color: theme.text, borderColor: theme.border }]}
               value={editedName}
               onChangeText={setEditedName}
-              autoFocus
+              autoFocus={true}
             />
           ) : (
             <Text style={[styles.habitName, { color: theme.text }]} numberOfLines={1}>

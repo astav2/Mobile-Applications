@@ -74,7 +74,7 @@ export function AddHabitModal({ visible, onClose, onAdd, isDark }: AddHabitModal
             placeholderTextColor={theme.textSecondary}
             value={habitName}
             onChangeText={setHabitName}
-            autoFocus
+            autoFocus={true}
             onSubmitEditing={handleAdd}
           />
 
