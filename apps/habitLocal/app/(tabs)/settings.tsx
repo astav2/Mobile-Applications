@@ -41,7 +41,7 @@ export default function SettingsScreen() {
               </Text>
             </View>
             <Switch
-              value={darkMode}
+              value={Boolean(darkMode)}
               onValueChange={toggleDarkMode}
               trackColor={{ false: theme.border, true: theme.primary }}
               thumbColor="#FFFFFF"
