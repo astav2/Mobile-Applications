@@ -1,9 +1,10 @@
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Switch, Alert } from 'react-native';
 import { useHabitStore } from '../../stores/useHabitStore';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import { colors, spacing, fontSize, borderRadius } from '../../constants/theme';
 
 export default function SettingsScreen() {
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
+  const darkMode = useDarkMode();
   const toggleDarkMode = useHabitStore((state) => state.toggleDarkMode);
   const clearAllData = useHabitStore((state) => state.clearAllData);
   const theme = darkMode ? colors.dark : colors.light;

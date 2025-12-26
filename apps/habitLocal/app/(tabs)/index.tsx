@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-nati
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useHabits } from '../../hooks/useHabits';
-import { useHabitStore } from '../../stores/useHabitStore';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import { HabitRow } from '../../components/HabitRow';
 import { AddHabitModal } from '../../components/AddHabitModal';
 import { colors, spacing, fontSize } from '../../constants/theme';
@@ -10,7 +10,7 @@ import { formatDate, getTodayString } from '../../utils/date';
 
 export default function TodayScreen() {
   const { habitsWithStreaks, addHabit } = useHabits();
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
+  const darkMode = useDarkMode();
   const theme = darkMode ? colors.dark : colors.light;
   const [modalVisible, setModalVisible] = useState(false);
 

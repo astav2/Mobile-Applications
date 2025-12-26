@@ -1,11 +1,11 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useHabitStore } from '../../stores/useHabitStore';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import { colors } from '../../constants/theme';
 
 export default function TabLayout() {
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
-  const theme = (darkMode === true) ? colors.dark : colors.light;
+  const darkMode = useDarkMode();
+  const theme = darkMode ? colors.dark : colors.light;
 
   return (
     <Tabs

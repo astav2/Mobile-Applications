@@ -11,6 +11,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useHabitStore } from '../../stores/useHabitStore';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import { colors, spacing, fontSize, borderRadius } from '../../constants/theme';
 import { formatShortDate } from '../../utils/date';
 import {
@@ -25,7 +26,7 @@ export default function HabitDetailScreen() {
 
   const habits = useHabitStore((state) => state.habits);
   const logs = useHabitStore((state) => state.logs);
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
+  const darkMode = useDarkMode();
   const deleteHabit = useHabitStore((state) => state.deleteHabit);
   const editHabit = useHabitStore((state) => state.editHabit);
 

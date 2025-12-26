@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useHabitStore } from '../stores/useHabitStore';
+import { useDarkMode } from '../hooks/useDarkMode';
 
 export default function RootLayout() {
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
+  const darkMode = useDarkMode();
 
   return (
     <>

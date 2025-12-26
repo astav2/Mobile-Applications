@@ -1,13 +1,13 @@
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { useStreaks } from '../../hooks/useStreaks';
-import { useHabitStore } from '../../stores/useHabitStore';
+import { useDarkMode } from '../../hooks/useDarkMode';
 import { StatsCard } from '../../components/StatsCard';
 import { HeatMap } from '../../components/HeatMap';
 import { colors, spacing, fontSize } from '../../constants/theme';
 
 export default function InsightsScreen() {
   const stats = useStreaks();
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
+  const darkMode = useDarkMode();
   const theme = darkMode ? colors.dark : colors.light;
 
   return (

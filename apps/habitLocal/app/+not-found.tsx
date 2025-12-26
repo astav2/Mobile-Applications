@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text } from 'react-native';
 import { Link } from 'expo-router';
-import { useHabitStore } from '../stores/useHabitStore';
+import { useDarkMode } from '../hooks/useDarkMode';
 import { colors, spacing, fontSize } from '../constants/theme';
 
 export default function NotFoundScreen() {
-  const darkMode = useHabitStore((state) => state.settings.darkMode);
+  const darkMode = useDarkMode();
   const theme = darkMode ? colors.dark : colors.light;
 
   return (
