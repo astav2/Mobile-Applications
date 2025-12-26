@@ -98,6 +98,13 @@ export const useHabitStore = create<HabitState>()(
     {
       name: 'habit-storage',
       storage: createJSONStorage(() => AsyncStorage),
+      migrate: (persistedState: any, version: number) => {
+        // Ensure darkMode is always a boolean, not a string
+        if (persistedState && persistedState.settings) {
+          persistedState.settings.darkMode = Boolean(persistedState.settings.darkMode);
+        }
+        return persistedState;
+      },
     }
   )
 );
