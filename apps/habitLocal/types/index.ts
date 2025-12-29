@@ -9,8 +9,17 @@ export interface DayLog {
   completedHabits: string[]; // habit IDs completed on this day
 }
 
+export interface NotificationSettings {
+  eveningReminder: boolean;
+  morningStats: boolean;
+  weeklyDigest: boolean;
+  monthlyDigest: boolean;
+  streakSaver: boolean;
+}
+
 export interface Settings {
   darkMode: boolean;
+  notifications: NotificationSettings;
 }
 
 export interface HabitState {
@@ -22,7 +31,9 @@ export interface HabitState {
   deleteHabit: (id: string) => void;
   editHabit: (id: string, name: string) => void;
   toggleHabit: (habitId: string, date: string) => void;
+  toggleHabitForDate: (habitId: string, date: string) => void;
   toggleDarkMode: () => void;
+  toggleNotification: (key: keyof NotificationSettings) => void;
   clearAllData: () => void;
 }
 

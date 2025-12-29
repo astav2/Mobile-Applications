@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { colors, borderRadius } from '../constants/theme';
 
 interface HeatMapCellProps {
@@ -6,27 +6,44 @@ interface HeatMapCellProps {
   total: number;
   isFuture: boolean;
   isDark: boolean;
+  date: string;
+  onPress?: (date: string) => void;
   size?: number;
 }
 
-export function HeatMapCell({ completed, total, isFuture, isDark, size = 32 }: HeatMapCellProps) {
+export function HeatMapCell({ completed, total, isFuture, isDark, date, onPress, size = 32 }: HeatMapCellProps) {
   const theme = isDark ? colors.dark : colors.light;
 
   const getBackgroundColor = () => {
     if (isFuture) {
       return theme.heatFuture;
     }
-    if (completed === 0) {
+
+    if (total === 0 || completed === 0) {
       return theme.heatEmpty;
     }
-    if (completed === total) {
-      return theme.heatFull;
+
+    const percentage = (completed / total) * 100;
+
+    if (percentage <= 25) {
+      return theme.heatLow;
+    } else if (percentage <= 50) {
+      return theme.heatMedium;
+    } else if (percentage <= 75) {
+      return theme.heatMediumHigh;
+    } else {
+      return theme.heatHigh;
     }
-    return theme.heatPartial;
+  };
+
+  const handlePress = () => {
+    if (onPress && !isFuture) {
+      onPress(date);
+    }
   };
 
   return (
-    <View
+    <TouchableOpacity
       style={[
         styles.cell,
         {
@@ -35,9 +52,12 @@ export function HeatMapCell({ completed, total, isFuture, isDark, size = 32 }: H
           height: size,
         },
       ]}
+      onPress={handlePress}
+      disabled={isFuture}
+      activeOpacity={0.7}
     >
       {isFuture && <Text style={styles.dot}>·</Text>}
-    </View>
+    </TouchableOpacity>
   );
 }
 

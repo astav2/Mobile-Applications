@@ -1,13 +1,20 @@
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Switch, Alert } from 'react-native';
 import { useHabitStore } from '../../stores/useHabitStore';
 import { useDarkMode } from '../../hooks/useDarkMode';
+import { useNotifications } from '../../hooks/useNotifications';
 import { colors, spacing, fontSize, borderRadius } from '../../constants/theme';
+import { NotificationSettings } from '../../types';
 
 export default function SettingsScreen() {
   const darkMode = useDarkMode();
   const toggleDarkMode = useHabitStore((state) => state.toggleDarkMode);
+  const toggleNotification = useHabitStore((state) => state.toggleNotification);
   const clearAllData = useHabitStore((state) => state.clearAllData);
+  const notifications = useHabitStore((state) => state.settings.notifications);
   const theme = darkMode ? colors.dark : colors.light;
+
+  // Initialize and manage notifications
+  useNotifications();
 
   const handleClearData = () => {
     Alert.alert(
@@ -44,6 +51,96 @@ export default function SettingsScreen() {
             <Switch
               value={Boolean(darkMode)}
               onValueChange={toggleDarkMode}
+              trackColor={{ false: theme.border, true: theme.primary }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+        </View>
+
+        <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
+          Notifications
+        </Text>
+        <View style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <View style={styles.settingRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.settingLabel, { color: theme.text }]}>
+                Evening Reminder
+              </Text>
+              <Text style={[styles.settingDescription, { color: theme.textSecondary }]}>
+                8 PM daily reminder to log habits
+              </Text>
+            </View>
+            <Switch
+              value={Boolean(notifications.eveningReminder)}
+              onValueChange={() => toggleNotification('eveningReminder')}
+              trackColor={{ false: theme.border, true: theme.primary }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+          <View style={styles.settingRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.settingLabel, { color: theme.text }]}>Morning Stats</Text>
+              <Text style={[styles.settingDescription, { color: theme.textSecondary }]}>
+                9 AM daily summary of yesterday
+              </Text>
+            </View>
+            <Switch
+              value={Boolean(notifications.morningStats)}
+              onValueChange={() => toggleNotification('morningStats')}
+              trackColor={{ false: theme.border, true: theme.primary }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+          <View style={styles.settingRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.settingLabel, { color: theme.text }]}>Weekly Digest</Text>
+              <Text style={[styles.settingDescription, { color: theme.textSecondary }]}>
+                Sunday evening weekly summary
+              </Text>
+            </View>
+            <Switch
+              value={Boolean(notifications.weeklyDigest)}
+              onValueChange={() => toggleNotification('weeklyDigest')}
+              trackColor={{ false: theme.border, true: theme.primary }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+          <View style={styles.settingRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.settingLabel, { color: theme.text }]}>Monthly Digest</Text>
+              <Text style={[styles.settingDescription, { color: theme.textSecondary }]}>
+                First of month summary
+              </Text>
+            </View>
+            <Switch
+              value={Boolean(notifications.monthlyDigest)}
+              onValueChange={() => toggleNotification('monthlyDigest')}
+              trackColor={{ false: theme.border, true: theme.primary }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+          <View style={styles.settingRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.settingLabel, { color: theme.text }]}>Streak Saver</Text>
+              <Text style={[styles.settingDescription, { color: theme.textSecondary }]}>
+                11:30 PM reminder if habits incomplete
+              </Text>
+            </View>
+            <Switch
+              value={Boolean(notifications.streakSaver)}
+              onValueChange={() => toggleNotification('streakSaver')}
               trackColor={{ false: theme.border, true: theme.primary }}
               thumbColor="#FFFFFF"
             />

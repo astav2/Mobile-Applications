@@ -16,9 +16,10 @@ import { getTotalCompletionsForDate } from '../utils/streaks';
 interface HeatMapProps {
   habitId?: string; // If provided, show heat map for specific habit only
   isDark: boolean;
+  onCellPress?: (date: string) => void;
 }
 
-export function HeatMap({ habitId, isDark }: HeatMapProps) {
+export function HeatMap({ habitId, isDark, onCellPress }: HeatMapProps) {
   const habits = useHabitStore((state) => state.habits);
   const logs = useHabitStore((state) => state.logs);
   const theme = isDark ? colors.dark : colors.light;
@@ -80,10 +81,12 @@ export function HeatMap({ habitId, isDark }: HeatMapProps) {
     calendarDays.push(
       <HeatMapCell
         key={dateString}
+        date={dateString}
         completed={completed}
         total={totalHabits}
         isFuture={isDateFuture}
         isDark={isDark}
+        onPress={onCellPress}
         size={40}
       />
     );
@@ -115,9 +118,11 @@ export function HeatMap({ habitId, isDark }: HeatMapProps) {
 
       <View style={styles.legend}>
         <Text style={[styles.legendText, { color: theme.textSecondary }]}>Less</Text>
-        <HeatMapCell completed={0} total={1} isFuture={false} isDark={isDark} size={16} />
-        <HeatMapCell completed={1} total={2} isFuture={false} isDark={isDark} size={16} />
-        <HeatMapCell completed={1} total={1} isFuture={false} isDark={isDark} size={16} />
+        <HeatMapCell completed={0} total={4} isFuture={false} isDark={isDark} date="" size={16} />
+        <HeatMapCell completed={1} total={4} isFuture={false} isDark={isDark} date="" size={16} />
+        <HeatMapCell completed={2} total={4} isFuture={false} isDark={isDark} date="" size={16} />
+        <HeatMapCell completed={3} total={4} isFuture={false} isDark={isDark} date="" size={16} />
+        <HeatMapCell completed={4} total={4} isFuture={false} isDark={isDark} date="" size={16} />
         <Text style={[styles.legendText, { color: theme.textSecondary }]}>More</Text>
       </View>
     </View>

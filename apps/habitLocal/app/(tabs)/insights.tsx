@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useStreaks } from '../../hooks/useStreaks';
 import { useDarkMode } from '../../hooks/useDarkMode';
 import { StatsCard } from '../../components/StatsCard';
@@ -6,9 +7,14 @@ import { HeatMap } from '../../components/HeatMap';
 import { colors, spacing, fontSize } from '../../constants/theme';
 
 export default function InsightsScreen() {
+  const router = useRouter();
   const stats = useStreaks();
   const darkMode = useDarkMode();
   const theme = darkMode ? colors.dark : colors.light;
+
+  const handleCellPress = (date: string) => {
+    router.push(`/day/${date}`);
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -56,7 +62,7 @@ export default function InsightsScreen() {
 
         <Text style={[styles.sectionTitle, { color: theme.text }]}>Activity</Text>
 
-        <HeatMap isDark={darkMode} />
+        <HeatMap isDark={darkMode} onCellPress={handleCellPress} />
       </ScrollView>
     </View>
   );

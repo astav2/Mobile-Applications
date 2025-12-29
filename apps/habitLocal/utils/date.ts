@@ -82,3 +82,28 @@ export function getWeekDates(): string[] {
 
   return dates;
 }
+
+export function isWithinEditWindow(dateString: string, habitCreatedAt: string): boolean {
+  const date = new Date(dateString);
+  const today = new Date();
+  const habitCreatedDate = new Date(habitCreatedAt);
+
+  // Reset hours to compare dates only
+  date.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+  habitCreatedDate.setHours(0, 0, 0, 0);
+
+  // Can't edit future dates
+  if (date > today) {
+    return false;
+  }
+
+  // Can't edit dates before habit was created
+  if (date < habitCreatedDate) {
+    return false;
+  }
+
+  // Can only edit dates within 7 days from today
+  const daysDifference = Math.floor((today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+  return daysDifference <= 7;
+}

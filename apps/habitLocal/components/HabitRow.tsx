@@ -6,21 +6,37 @@ import { useHabitStore } from '../stores/useHabitStore';
 import { getTodayString } from '../utils/date';
 
 interface HabitRowProps {
-  habit: HabitWithStreak;
+  habit: HabitWithStreak & { canEdit?: boolean };
   isDark: boolean;
+  forceDate?: string;
+  onToggle?: () => void;
 }
 
-export function HabitRow({ habit, isDark }: HabitRowProps) {
+export function HabitRow({ habit, isDark, forceDate, onToggle }: HabitRowProps) {
   const router = useRouter();
   const toggleHabit = useHabitStore((state) => state.toggleHabit);
+  const logs = useHabitStore((state) => state.logs);
   const theme = isDark ? colors.dark : colors.light;
 
+  const targetDate = forceDate || getTodayString();
+
+  // Check if habit is completed for the target date
+  const isCompleted = forceDate
+    ? logs.find((log) => log.date === forceDate)?.completedHabits.includes(habit.id) || false
+    : habit.isCompletedToday;
+
   const handleToggle = () => {
-    toggleHabit(habit.id, getTodayString());
+    if (onToggle) {
+      onToggle();
+    } else {
+      toggleHabit(habit.id, targetDate);
+    }
   };
 
   const handlePress = () => {
-    router.push(`/habit/${habit.id}`);
+    if (!forceDate) {
+      router.push(`/habit/${habit.id}`);
+    }
   };
 
   return (
@@ -33,12 +49,12 @@ export function HabitRow({ habit, isDark }: HabitRowProps) {
           styles.circle,
           {
             borderColor: theme.primary,
-            backgroundColor: habit.isCompletedToday ? theme.primary : 'transparent',
+            backgroundColor: isCompleted ? theme.primary : 'transparent',
           },
         ]}
         onPress={handleToggle}
       >
-        {habit.isCompletedToday && <View style={styles.checkmark} />}
+        {isCompleted && <View style={styles.checkmark} />}
       </TouchableOpacity>
 
       <View style={styles.content}>
