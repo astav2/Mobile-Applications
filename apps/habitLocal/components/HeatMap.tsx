@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
   },
   weekDays: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     marginBottom: spacing.sm,
+    gap: 4,
   },
   weekDay: {
     fontSize: fontSize.sm,
@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
   emptyCell: {
     width: 40,
     height: 40,
+    marginRight: 0,
   },
   legend: {
     flexDirection: 'row',
